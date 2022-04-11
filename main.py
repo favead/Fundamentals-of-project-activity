@@ -1,6 +1,6 @@
+from line import Line
 from parser import Parser
+from curve import BezierCurve
+from point import Point
 
-parser = Parser("geom_ciam004.txt")
-x,y = [],[]
-parser.readAndFillCoords(x,y)
-print(x,y)
+
