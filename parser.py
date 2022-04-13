@@ -1,25 +1,27 @@
+from ctypes import pointer
 import re;
+from point import Point
 
 class Parser:
   def __init__(self, airflow_file:str, circles_file:str):
     self.airflow_file = airflow_file
     self.circles_file = circles_file
 
-  def getCoords(self):
-    x,y = [],[]
+  def getCoords(self)->list:
+    points = []
     with open(self.airflow_file,"r") as f:
       for row in f:
-        self.splitRowAndSaveData(row,x,y)
-    return x,y
+        tmp = re.split(r'\s',row)
+        x,y = map(float,tmp[0:2])
+        points.append(Point(x,y))
+    return points
 
-  def getCircleCentres(self):
-    x,y = [],[]
+  def getInfoAboutCircles(self)->list:
+    info = []
     with open(self.circles_file,"r") as f:
       for row in f:
-        self.splitRowAndSaveData(row,x,y)
-    return x,y
-
-  def splitRowAndSaveData(self,row:str,x:list,y:list):
-    tmp = re.split(r'\s',row)
-    x.append(float(tmp[0]))
-    y.append(float(tmp[1]))
+        tmp = row.split()
+        x,y = map(float,tmp[0:2])
+        n,l = map(int,tmp[-2:])
+        info.append([Point(x,y),n,l])
+    return info
