@@ -77,6 +77,5 @@ def show_profile(p):
     plt.show()
 
 
-
 show_curves(profile)
 show_profile(profile)
